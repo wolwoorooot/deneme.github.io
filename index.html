@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maritime E-Ticaret</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #e0f7fa;
+            color: #000;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .login-panel, .register-panel {
+            width: 300px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .login-panel h2, .register-panel h2 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .login-panel input, .register-panel input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-panel button, .register-panel button {
+            width: 100%;
+            padding: 10px;
+            background-color: #005f86;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-panel button:hover, .register-panel button:hover {
+            background-color: #00465a;
+        }
+
+        .main-interface {
+            display: none;
+        }
+
+        /* Menü Stili */
+        .menu {
+            background-color: #005f86;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+
+        .menu a:hover {
+            background-color: #00465a;
+            border-radius: 5px;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #005f86;
+            color: #fff;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #00465a;
+        }
+
+        .ad-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product-item {
+            background-color: #ffffff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .product-image {
+            max-width: 100px;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .comments-section {
+            margin-top: 30px;
+        }
+
+        .comments-section h3 {
+            margin-bottom: 10px;
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .comment-form textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .comment-form button {
+            padding: 10px;
+            background-color: #005f86;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
+            background-color: #00465a;
+        }
+
+        .ad-creation-section {
+            margin-top: 40px;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .ad-creation-section h3 {
+            margin-bottom: 15px;
+        }
+
+        .ad-creation-section input,
+        .ad-creation-section textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .ad-creation-section button {
+            padding: 10px;
+            background-color: #005f86;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .ad-creation-section button:hover {
+            background-color: #00465a;
+        }
+
+        .messages-section {
+            margin-top: 40px;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .messages-section h3 {
+            margin-bottom: 15px;
+        }
+
+        .messages-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-form textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .message-form button {
+            padding: 10px;
+            background-color: #005f86;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .message-form button:hover {
+            background-color: #00465a;
+        }
+
+        .profile-section {
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
+    <script>
+        let users = [];
+        let ads = [];
+        let messages = [];
+        let loggedInUser = null;
+
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                loggedInUser = user;
+                document.querySelector(".login-panel").style.display = "none";
+                document.querySelector(".main-interface").style.display = "block";
+                document.querySelector(".menu").style.display = "flex";
+                displayAds(); // İlanları göster
+                alert("Giriş başarılı!");
+            } else {
+                alert("Yanlış kullanıcı adı veya şifre!");
+            }
+        }
+
+        function register() {
+            const username = document.getElementById("register-username").value;
+            const password = document.getElementById("register-password").value;
+
+            if (username.trim() === "" || password.trim() === "") {
+                alert("Lütfen tüm alanları doldurun.");
+                return;
+            }
+
+            if (users.some(u => u.username === username)) {
+                alert("Bu kullanıcı adı zaten alınmış.");
+                return;
+            }
+
+            users.push({ username, password });
+            alert("Kayıt başarılı! Giriş yapın.");
+            document.querySelector('.register-panel').style.display = 'none';
+            document.querySelector('.login-panel').style.display = 'block';
+        }
+
+        function createAd() {
+            const adTitle = document.getElementById("ad-title").value;
+            const adPrice = document.getElementById("ad-price").value;
+            const adDate = document.getElementById("ad-date").value;
+            const adDescription = document.getElementById("ad-description").value;
+            const adFile = document.getElementById("ad-file").files[0];
+
+            if (!adTitle || !adPrice || !adDate || !adDescription || !adFile) {
+                alert("Lütfen tüm alanları doldurun.");
+                return;
+            }
+
+            const newAd = {
+                title: adTitle,
+                price: adPrice,
+                date: adDate,
+                description: adDescription,
+                image: URL.createObjectURL(adFile),
+                comments: []
+            };
+
+            ads.push(newAd);
+            displayAds();
+            resetAdForm();
+        }
+
+        function displayAds() {
+            const adList = document.getElementById("ad-list");
+            adList.innerHTML = '';
+            ads.forEach((ad, index) => {
+                const adDiv = document.createElement("div");
+                adDiv.classList.add("product-item");
+                adDiv.innerHTML = `
+                    <h4>${ad.title}</h4>
+                    <img src="${ad.image}" alt="${ad.title}" class="product-image">
+                    <p>Fiyat: ${ad.price} TL</p>
+                    <p>Tarih: ${ad.date}</p>
+                    <p>Açıklama: ${ad.description}</p>
+                    <button onclick="toggleComments(${index})">Yorumlar</button>
+                    <div class="comments-section" id="comments-${index}" style="display: none;">
+                        <h5>Yorumlar</h5>
+                        <div class="comments-list" id="comments-list-${index}"></div>
+                        <div class="comment-form">
+                            <textarea id="comment-text-${index}" placeholder="Yorum yap..."></textarea>
+                            <button onclick="addComment(${index})">Yorum Ekle</button>
+                        </div>
+                    </div>
+                `;
+                adList.appendChild(adDiv);
+            });
+        }
+
+        function toggleComments(index) {
+            const commentsSection = document.getElementById(`comments-${index}`);
+            commentsSection.style.display = commentsSection.style.display === "none" ? "block" : "none";
+        }
+
+        function addComment(index) {
+            const commentText = document.getElementById(`comment-text-${index}`).value;
+            if (!commentText) {
+                alert("Lütfen bir yorum yazın.");
+                return;
+            }
+
+            ads[index].comments.push(commentText);
+            displayComments(index);
+            document.getElementById(`comment-text-${index}`).value = ""; // Yorum alanını temizle
+        }
+
+        function displayComments(index) {
+            const commentsList = document.getElementById(`comments-list-${index}`);
+            commentsList.innerHTML = "";
+            ads[index].comments.forEach(comment => {
+                const commentDiv = document.createElement("div");
+                commentDiv.classList.add("message");
+                commentDiv.textContent = comment;
+                commentsList.appendChild(commentDiv);
+            });
+        }
+
+        function resetAdForm() {
+            document.getElementById("ad-title").value = "";
+            document.getElementById("ad-price").value = "";
+            document.getElementById("ad-date").value = "";
+            document.getElementById("ad-description").value = "";
+            document.getElementById("ad-file").value = "";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="login-panel">
+            <h2>Giriş Yap</h2>
+            <input type="text" id="username" placeholder="Kullanıcı Adı">
+            <input type="password" id="password" placeholder="Şifre">
+            <button onclick="login()">Giriş</button>
+            <p>Hesabınız yok mu? <a href="#" onclick="document.querySelector('.register-panel').style.display='block'; document.querySelector('.login-panel').style.display='none';">Kayıt Ol</a></p>
+        </div>
+
+        <div class="register-panel" style="display: none;">
+            <h2>Kayıt Ol</h2>
+            <input type="text" id="register-username" placeholder="Kullanıcı Adı">
+            <input type="password" id="register-password" placeholder="Şifre">
+            <button onclick="register()">Kayıt Ol</button>
+            <p>Hesabınız var mı? <a href="#" onclick="document.querySelector('.login-panel').style.display='block'; document.querySelector('.register-panel').style.display='none';">Giriş Yap</a></p>
+        </div>
+
+        <div class="main-interface">
+            <div class="menu" style="display: none;">
+                <a href="#" onclick="displayAds()">İlan Listesi</a>
+                <a href="#">Kullanıcı Profili</a>
+                <a href="#">Mesajlar</a>
+                <a href="#" onclick="logout()">Çıkış Yap</a>
+            </div>
+
+            <h2>İlan Oluştur</h2>
+            <div class="ad-creation-section">
+                <input type="text" id="ad-title" placeholder="İlan Başlığı">
+                <input type="text" id="ad-price" placeholder="Fiyat">
+                <input type="date" id="ad-date">
+                <textarea id="ad-description" placeholder="Açıklama"></textarea>
+                <input type="file" id="ad-file">
+                <button onclick="createAd()">İlan Oluştur</button>
+            </div>
+
+            <h2>İlanlar</h2>
+            <div class="ad-list" id="ad-list"></div>
+        </div>
+    </div>
+</body>
+</html>
